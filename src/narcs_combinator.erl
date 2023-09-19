@@ -37,7 +37,7 @@ map_result(Encoder, Mapping) ->
 %% @doc Apply the encoder if the condition is true.
 
 -type condition() :: boolean()
-                   | #{any() := boolean()}.
+                   | atom().
 
 -spec condition(condition(), narcs:encoder()) -> narcs:encoder().
 
