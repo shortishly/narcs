@@ -38,3 +38,7 @@ from_atom_test_() ->
     t(narcs_result:to_binary(
         narcs_bytes:from_atom()),
       [{<<"abc">>, abc}]).
+
+take_n_test_() ->
+    t(narcs_bytes:take(6),
+      [{<<"123456">>, <<"123456">>}]).

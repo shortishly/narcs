@@ -19,6 +19,7 @@
 
 
 -export([into_bit/0]).
+-export([into_bit/1]).
 -export([into_bitfield/1]).
 
 
@@ -51,4 +52,13 @@ into_bit() ->
 
         (false) ->
             <<0:1>>
+    end.
+
+
+-spec into_bit(narcs:encoder(A, boolean())) -> narcs:encoder(A, <<_:1>>).
+
+into_bit(Encoder) ->
+    fun
+        (Decoded) ->
+            (into_bit())(Encoder(Decoded))
     end.

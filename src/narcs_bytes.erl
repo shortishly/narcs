@@ -21,12 +21,13 @@
 -export([length_encoded/1]).
 -export([null_terminated/0]).
 -export([tag/1]).
+-export([take/1]).
 -include_lib("kernel/include/logger.hrl").
 
 
 %% @doc Use the supplied encoder to write the length of output.
 
--spec length_encoded(narcs:encoder()) -> narcs:encoder(iodata(), iodata()).
+-spec length_encoded(narcs:encoder(A, iodata())) -> narcs:encoder(A, iodata()).
 
 length_encoded(Encoder) ->
     fun
@@ -66,4 +67,15 @@ tag(Tag) ->
     fun
         (_) ->
             Tag
+    end.
+
+
+-spec take(non_neg_integer()) -> narcs:encoder(binary(), binary()).
+
+%% @doc Output the number bytes.
+
+take(N) ->
+    fun
+        (<<Decoded:N/bytes>>) ->
+            Decoded
     end.
